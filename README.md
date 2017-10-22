@@ -52,21 +52,21 @@
     <td class="tg-yw4l">1</td>
     <td class="tg-yw4l">Software Development Life Cycle</td>
     <td class="tg-yw4l">Set of knowledges about SDLC,  base terms and approaches</td>
-    <td class="tg-yw4l">Verbal assessment. Create presentation.</td>
+    <td class="tg-yw4l">Verbal assessment. <a href="https://github.com/vavan11/Mentee/raw/master/SDLC%20%26%20Software%20environments%20organization.pptx">Create presentation.</a></td>
     <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">2</td>
     <td class="tg-yw4l">Software environments organization</td>
     <td class="tg-yw4l">Base terms, requirements for DEV, QA, STAGE, PROD, etc. environments</td>
-    <td class="tg-yw4l">Verbal assessment. Create presentation.</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Verbal assessment. <a href="https://github.com/vavan11/Mentee/raw/master/SDLC%20%26%20Software%20environments%20organization.pptx">Create presentation.</td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">3</td>
     <td class="tg-yw4l">Software Development Methodology</td>
     <td class="tg-yw4l">Set of knowledges: Waterfall, Agile, Scrum, Kanban, base terms and approaches</td>
-    <td class="tg-yw4l">Verbal assessment. Create presentation. Setup JIRA with Agile demo project. Present SCRUM process on demo project.</td>
+    <td class="tg-yw4l">Verbal assessment. <a href="https://github.com/vavan11/Mentee/raw/master/Software%20Development%20Methodology.pptx">Create presentation.</a> Setup JIRA with Agile demo project. Present SCRUM process on demo project.</td>
     <td class="tg-yw4l"></td>
   </tr>
   <tr>
