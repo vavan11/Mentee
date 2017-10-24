@@ -46,7 +46,7 @@
     <td class="tg-yw4l">SKILL</td>
     <td class="tg-yw4l">TARGET ABILITY</td>
     <td class="tg-yw4l">CRITERIA of REACH</td>
-    <td class="tg-yw4l">TIME FRAME</td>
+    <td class="tg-yw4l">STATUS</td>
   </tr>
   <tr>
     <td class="tg-yw4l">1</td>
