@@ -114,7 +114,7 @@
   <tr>
     <td class="tg-yw4l">10</td>
     <td class="tg-yw4l">Monitoring and logging tools</td>
-    <td class="tg-yw4l">Base knowledges of monitoring tools and log analizers. Zabbix/splunk. Kibana/logstash</td>
+    <td class="tg-yw4l">Base knowledges of monitoring tools and log analizers. Zabbix/Splunk. Kibana/logstash</td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
   </tr>
