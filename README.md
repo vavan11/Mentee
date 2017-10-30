@@ -67,7 +67,7 @@
     <td class="tg-yw4l">Software Development Methodology</td>
     <td class="tg-yw4l">Set of knowledges: Waterfall, Agile, Scrum, Kanban, base terms and approaches</td>
     <td class="tg-yw4l">Verbal assessment. <a href="https://github.com/vavan11/Mentee/raw/master/Software%20Development%20Methodology.pptx">Create presentation.</a> Setup JIRA with Agile demo project. Present SCRUM process on demo project.</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">4</td>
