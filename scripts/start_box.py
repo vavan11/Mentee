@@ -15,6 +15,21 @@ try:
                                          VpcId=vpc_id)
     security_group_id = response['GroupId']
     print('Security Group Created %s in vpc %s.' % (security_group_id, vpc_id))
+
+        data = ec2.authorize_security_group_ingress(
+        GroupId=security_group_id,
+        IpPermissions=[
+            {'IpProtocol': 'tcp',
+             'FromPort': 80,
+             'ToPort': 80,
+             'IpRanges': [{'CidrIp': '0.0.0.0/0'}]},
+            {'IpProtocol': 'tcp',
+             'FromPort': 2222,
+             'ToPort': 22,
+             'IpRanges': [{'CidrIp': '0.0.0.0/0'}]}
+        ])
+    print('Ingress Successfully Set %s' % data)
+except ClientError as e:
     print(e)
 
 #Launching New Instances
