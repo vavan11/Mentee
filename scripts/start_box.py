@@ -15,7 +15,7 @@ try:
                                          VpcId=vpc_id)
     security_group_id = response['GroupId']
     print('Security Group Created %s in vpc %s.' % (security_group_id, vpc_id))
-
+    print(e)
 
 #Launching New Instances
 ##  https://stackoverflow.com/questions/41518334/how-do-i-use-boto3-to-launch-an-ec2-instance-with-an-iam-role
