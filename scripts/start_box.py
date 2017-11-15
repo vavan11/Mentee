@@ -16,7 +16,7 @@ try:
     security_group_id = response['GroupId']
     print('Security Group Created %s in vpc %s.' % (security_group_id, vpc_id))
 
-        data = ec2.authorize_security_group_ingress(
+    data = ec2.authorize_security_group_ingress(
         GroupId=security_group_id,
         IpPermissions=[
             {'IpProtocol': 'tcp',
