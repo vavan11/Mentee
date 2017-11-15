@@ -24,7 +24,7 @@ try:
              'ToPort': 80,
              'IpRanges': [{'CidrIp': '0.0.0.0/0'}]},
             {'IpProtocol': 'tcp',
-             'FromPort': 2222,
+             'FromPort': 22,
              'ToPort': 22,
              'IpRanges': [{'CidrIp': '0.0.0.0/0'}]}
         ])
@@ -35,7 +35,8 @@ except ClientError as e:
 #Launching New Instances
 ##  https://stackoverflow.com/questions/41518334/how-do-i-use-boto3-to-launch-an-ec2-instance-with-an-iam-role
 
-#ec2_instance = boto3.resource('ec2')
-#ec2_instance.create_instances(InstanceType='t2.micro',
-#                              MinCount=1, MaxCount=1,
-#                              SecurityGroupIds=[security_group_id],)
+ec2_instance = boto3.resource('ec2')
+ec2_instance.create_instances(InstanceType='t2.micro',
+                              MinCount=1, MaxCount=1,
+                              SecurityGroupIds=[security_group_id],)
+                              
