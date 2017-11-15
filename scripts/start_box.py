@@ -34,8 +34,11 @@ except ClientError as e:
 
 #Launching New Instances
 ##  https://stackoverflow.com/questions/41518334/how-do-i-use-boto3-to-launch-an-ec2-instance-with-an-iam-role
+##  http://boto3.readthedocs.io/en/latest/guide/migrationec2.html?highlight=create_instances
+
 
 ec2_instance = boto3.resource('ec2')
-ec2_instance.create_instances(InstanceType='t2.micro',
+ec2_instance.create_instances(ImageId='ami-e28d098d',
+                              InstanceType='t2.micro',
                               MinCount=1, MaxCount=1,
-                              SecurityGroupIds=['security_group_id'],)
+                              SecurityGroupIds=[security_group_id])
