@@ -22,5 +22,5 @@ try:
 
 #ec2_instance = boto3.resource('ec2')
 #ec2_instance.create_instances(InstanceType='t2.micro',
-                              MinCount=1, MaxCount=1,
-                              SecurityGroupIds=[security_group_id],)
+#                              MinCount=1, MaxCount=1,
+#                              SecurityGroupIds=[security_group_id],)
