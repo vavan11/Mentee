@@ -24,7 +24,7 @@
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l">Mentor:</td>
-    <td class="tg-yw4l">Volodymyr Shvachko</td>
+    <td class="tg-yw4l">Artem Kosenko</td>
     <td class="tg-yw4l"></td>
   </tr>
   <tr>
