@@ -42,3 +42,13 @@ ec2_instance.create_instances(ImageId='ami-e28d098d',
                               InstanceType='t2.micro',
                               MinCount=1, MaxCount=1,
                               SecurityGroupIds=[security_group_id])
+
+# Check box
+
+# Boto 3
+# Use the filter() method of the instances collection to retrieve
+# all running EC2 instances.
+instances = ec2.instances.filter(
+    Filters=[{'Name': 'instance-state-name', 'Values': ['running']}])
+for instance in instances:
+    print(instance.id, instance.instance_type)                        
