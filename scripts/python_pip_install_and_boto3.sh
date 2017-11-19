@@ -4,7 +4,7 @@
 if [[ $(cat /proc/version |grep -io "Ubuntu" | head -1 | wc -l) -eq 1 ]]
 then
   echo -e "\e[31mInstall_python-pip_for_Ubuntu_and_boto3\e[0m"
-  apt-get update && apt-get upgrade #> /dev/null 2>&1
+  apt-get update && apt-get upgrade
   apt-get -y install python-pip
   #Check pip install
   if [[ $(pip --version |grep -io "pip") -eq pip ]]
