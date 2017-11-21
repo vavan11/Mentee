@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "primary_box" do |primary_box|
+    primary_box.vm.box = "ubuntu/precise64"
+    primary_box.vm.hostname = 'primary-box'
+    primary_box.vm.box_url = "ubuntu/precise64"
+
+    primary_box.vm.network :private_network, ip: "192.168.56.51"
+	primary_box.vm.provision "shell", path: "provision_ssh_key.sh"
+    primary_box.vm.provision "shell", path: "provision-ansible.sh"
+    primary_box.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "ansible_box"]
+    end
+  end
+
+  config.vm.define "hcsc_server" do |hcsc_server|
+    hcsc_server.vm.box = "ubuntu/precise64"
+    hcsc_server.vm.hostname = 'hcsc-server'
+    hcsc_server.vm.box_url = "ubuntu/precise64"
+
+    hcsc_server.vm.network :private_network, ip: "192.168.56.52"
+	primary_box.vm.provision "shell", path: "provision_ssh_key.sh"
+    hcsc_server.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--name", "one_box"]
+    end
+  end
+end
