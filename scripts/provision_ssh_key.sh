@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir /home/vagrant/.ssh
+mkdir -p /home/vagrant/.ssh
 cd /home/vagrant/.ssh/
 cp /vagrant/ssh/id_rsa id_rsa
 chmod 400 id_rsa

@@ -1,2 +1,3 @@
-scripts/ssh/id_rsa.pub
-scripts/ssh/id_rsa
+scripts/ssh/
+scripts/.vagrant/
+
