@@ -11,3 +11,4 @@ pip install cryptography
 sudo apt-get -y install software-properties-common
 sudo yes "" | apt-add-repository ppa:ansible/ansible
 sudo apt-get -y install ansible
+sudo apt-get update && sudo apt-get -y upgrade

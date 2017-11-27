@@ -5,12 +5,12 @@ Vagrant.configure("2") do |config|
     ansible_box.vm.hostname = 'ansible-box'
     ansible_box.vm.box_url = "ubuntu/xenial64"
 
-    ansible_box.vm.network :private_network, ip: "192.168.56.100"
+    ansible_box.vm.network :private_network, ip: "192.168.56.150"
 	  ansible_box.vm.provision "shell", path: "provision_ssh_key.sh"
     ansible_box.vm.provision "shell", path: "provision_ansible.sh"
     ansible_box.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--memory", 256]
       v.customize ["modifyvm", :id, "--name", "ansible-box"]
     end
   end
@@ -20,8 +20,9 @@ Vagrant.configure("2") do |config|
     one_box.vm.hostname = 'one-box'
     one_box.vm.box_url = "ubuntu/xenial64"
 
-    one_box.vm.network :private_network, ip: "192.168.56.101"
+    one_box.vm.network :private_network, ip: "192.168.56.151"
 	  one_box.vm.provision "shell", path: "provision_ssh_key.sh"
+    one_box.vm.provision "shell", path: "python-minimal.sh"
     one_box.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--memory", 256]
