@@ -1,11 +1,9 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
   config.vm.define "ansible-box" do |ansible_box|
-    ansible_box.vm.box = "ubuntu/precise64"
+    ansible_box.vm.box = "ubuntu/xenial64"
     ansible_box.vm.hostname = 'ansible-box'
-    ansible_box.vm.box_url = "ubuntu/precise64"
+    ansible_box.vm.box_url = "ubuntu/xenial64"
 
     ansible_box.vm.network :private_network, ip: "192.168.56.100"
 	  ansible_box.vm.provision "shell", path: "provision_ssh_key.sh"
@@ -18,9 +16,9 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "one-box" do |one_box|
-    one_box.vm.box = "ubuntu/precise64"
+    one_box.vm.box = "ubuntu/xenial64"
     one_box.vm.hostname = 'one-box'
-    one_box.vm.box_url = "ubuntu/precise64"
+    one_box.vm.box_url = "ubuntu/xenial64"
 
     one_box.vm.network :private_network, ip: "192.168.56.101"
 	  one_box.vm.provision "shell", path: "provision_ssh_key.sh"
