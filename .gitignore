@@ -1,4 +1,4 @@
 scripts/ssh/
 scripts/.vagrant/
-
+scripts/ansible/*.retry
 *.log

@@ -1,6 +1,6 @@
 # web.yml
 ---
-- hosts: all
+- hosts: jenkins
   tasks:
     - name: Update apt cache
       apt: update_cache=yes
