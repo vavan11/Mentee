@@ -1,0 +1,8 @@
+[Unit]
+After=tcpcheck.service
+
+[Service]
+ExecStart=/etc/tcpcheck.sh
+
+[Install]
+WantedBy=default.target
