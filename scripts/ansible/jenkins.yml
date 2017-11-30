@@ -1,0 +1,42 @@
+# jenkins.yml
+---
+- hosts: jenkins
+  tasks:
+    - name: Update apt cache
+      apt:
+        name: update_cache=yes
+
+    - name: Install JDK
+      apt:
+        name: name=default-jdk
+        state: present
+
+    - name: Install libfontconfig
+      apt:
+        name: name=libfontconfig
+        state: present
+
+    - name: Install libffi-dev
+      apt:
+        name: name=libffi-dev
+        state: present
+
+    - name: Install libncurses5-dev
+      apt:
+        name: name=libncurses5-dev
+        state: present
+
+    - name: Add the Jenkins public GPG key to the apt repo
+      apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
+      state: present
+
+    - name: Add Jenkins to the trusted sources list
+      apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/'
+    - apt:
+        name: update_cache=yes
+        state: present
+
+    - name: Install Jenkins server
+      apt:
+        name: name=jenkins
+        state: installed
