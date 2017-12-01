@@ -74,7 +74,7 @@
     <td class="tg-yw4l">Basics of IT infrastructure and clouds.</td>
     <td class="tg-yw4l">Base knowledge of AWS products. Practical experience of deployment in AWS. Security. Cloud definitions and service models (IaaS, PaaS, SaaS, [IaaC] )</td>
     <td class="tg-yw4l">Personal tech task for AWS in scope of test project. Completion of AWS free security on-line course</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">5</td>
