@@ -1,0 +1,22 @@
+# jenkins.yml
+---
+- hosts: git
+  sudo: yes
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: yes
+
+    - name: Install GIT-CORE
+      apt:
+        name: git-core
+        state: present
+
+    - user:
+      name: git
+      shell: /bin/bash
+      groups: admins,sudo
+      append: yes
+
+    - name: Copy pub key
+      shell: cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"

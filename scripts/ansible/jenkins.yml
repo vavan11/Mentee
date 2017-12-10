@@ -23,5 +23,5 @@
         name: jenkins
         state: present
 
-    - name:
+    - name: Start jenkins
       shell: systemctl start jenkins
