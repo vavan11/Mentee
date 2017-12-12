@@ -88,7 +88,7 @@
     <td class="tg-yw4l">Development tools. VCS.</td>
     <td class="tg-yw4l">Base skills for setup and maintenance: GIT</td>
     <td class="tg-yw4l">Personal tech task. Verbal assessment</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">7</td>
