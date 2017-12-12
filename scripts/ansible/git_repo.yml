@@ -1,0 +1,10 @@
+# git.yml
+---
+- hosts: git
+  sudo: yes
+  tasks:
+    - name: Create folder
+      shell: mkdir -p /home/git/project-1.git
+
+    - name: cd to mkdir and create an empty repo
+      shell: cd /home/git/{{PROJECT}} && git init --bare && chown -R git:git /home/git/

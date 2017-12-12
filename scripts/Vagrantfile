@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
     one_box.vm.provision "shell", path: "python-minimal.sh"
     one_box.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--memory", 1024]
       v.customize ["modifyvm", :id, "--name", "art-box"]
     end
   end

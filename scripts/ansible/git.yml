@@ -1,4 +1,4 @@
-# jenkins.yml
+# git.yml
 ---
 - hosts: git
   sudo: yes
@@ -13,10 +13,10 @@
         state: present
 
     - user:
-      name: git
-      shell: /bin/bash
-      groups: admins,sudo
-      append: yes
+        name: git
+        shell: /bin/bash
+        groups: adm
+        append: yes
 
     - name: Copy pub key
-      shell: cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+      shell: mkdir -p /home/git/.ssh && cat /home/ubuntu/.ssh/id_rsa.pub >> /home/git/.ssh/authorized_keys
