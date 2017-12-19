@@ -95,27 +95,27 @@
     <td class="tg-yw4l">Basics of CI/CD. Toolset.</td>
     <td class="tg-yw4l">Base skills for setup and maintenance : Jenkins</td>
     <td class="tg-yw4l">Verbal assessment</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">8</td>
     <td class="tg-yw4l">Linux OS.</td>
     <td class="tg-yw4l">Set of OS knowledge to fulfill system administration needs on HA production systems</td>
     <td class="tg-yw4l">Verbal assessment. Personal task or pass the certification</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">9</td>
     <td class="tg-yw4l">Scripting languages.</td>
     <td class="tg-yw4l">Basics of Python/Bash</td>
     <td class="tg-yw4l">Personal tech task. Verbal assessment. Completion the Codecademy's on-line course</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">10</td>
     <td class="tg-yw4l">Monitoring and logging tools</td>
     <td class="tg-yw4l">Base knowledges of monitoring tools and log analizers. Zabbix/Splunk. Kibana/logstash</td>
     <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
 </table>
