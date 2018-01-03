@@ -1,0 +1,21 @@
+
+Vagrant.configure("2") do |config|
+  config.vm.define "ansible-test" do |ansible|
+    ansible.vm.box = "ubuntu/xenial64"
+    ansible.vm.hostname = 'ansible-test'
+    ansible.vm.box_url = "ubuntu/xenial64"
+    ansible.vm.network :private_network, ip: "192.168.56.10"
+#	ansible.ssh.insert_key = false
+	ansible.vm.provision "shell", path: "provision_ssh_key.sh"
+    ansible.vm.provision "shell", path: "ansible_install.sh"
+	ansible.vm.provision "ansible_local" do |ansibleconf|
+#	ansibleconf.verbose = "v"
+    ansibleconf.playbook = "./playbook.yml"
+	end
+    ansible.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 2500]
+      v.customize ["modifyvm", :id, "--name", "ansible"]
+    end
+  end
+end
