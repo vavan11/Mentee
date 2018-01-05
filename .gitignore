@@ -3,3 +3,5 @@ scripts/.vagrant/
 scripts/ansible/*.retry
 *.log
 scripts/ansible-box/ssh/
+scripts/haproxy-box/ssh/
+scripts/haproxy-box/.vagrant

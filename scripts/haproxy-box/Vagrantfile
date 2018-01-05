@@ -1,0 +1,61 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "HaproxyMaster" do |haproxymaster|
+    haproxymaster.vm.box = "ubuntu/xenial64"
+    haproxymaster.vm.hostname = 'HaproxyMaster'
+    haproxymaster.vm.box_url = "ubuntu/xenial64"
+    haproxymaster.vm.network :private_network, ip: "192.168.56.10"
+	haproxymaster.vm.provision "shell", path: "provision_ssh_key.sh"
+    haproxymaster.vm.provision "shell", path: "haproxy.sh"
+	haproxymaster.vm.provision "shell", path: "keepalived_install.sh"
+	haproxymaster.vm.provision "shell", path: "keepalived_master.sh"
+    haproxymaster.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--name", "HaproxyMaster"]
+    end
+  end
+  
+  config.vm.define "HaproxyBackup" do |haproxybackup|
+    haproxybackup.vm.box = "ubuntu/xenial64"
+    haproxybackup.vm.hostname = 'HaproxyBackup'
+    haproxybackup.vm.box_url = "ubuntu/xenial64"
+    haproxybackup.vm.network :private_network, ip: "192.168.56.10"
+	haproxybackup.vm.provision "shell", path: "provision_ssh_key.sh"
+    haproxybackup.vm.provision "shell", path: "haproxy.sh"
+	haproxybackup.vm.provision "shell", path: "keepalived_install.sh"
+	haproxybackup.vm.provision "shell", path: "keepalived_backup.sh"
+    haproxybackup.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--name", "HaproxyBackup"]
+    end
+  end
+  
+  config.vm.define "nginx1" do |nginx1|
+    nginx1.vm.box = "ubuntu/xenial64"
+    nginx1.vm.hostname = 'nginx1'
+    nginx1.vm.box_url = "ubuntu/xenial64"
+    nginx1.vm.network :private_network, ip: "192.168.56.21"
+	nginx1.vm.provision "shell", path: "provision_ssh_key.sh"
+    nginx1.vm.provision "shell", path: "nginx.sh"
+    nginx1.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--name", "nginx1"]
+    end
+  end
+  
+  config.vm.define "nginx2" do |nginx2|
+    nginx2.vm.box = "ubuntu/xenial64"
+    nginx2.vm.hostname = 'nginx2'
+    nginx2.vm.box_url = "ubuntu/xenial64"
+    nginx2.vm.network :private_network, ip: "192.168.56.22"
+	nginx2.vm.provision "shell", path: "provision_ssh_key.sh"
+    nginx2.vm.provision "shell", path: "nginx.sh"
+    nginx2.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--name", "nginx2"]
+    end
+  end
+end
