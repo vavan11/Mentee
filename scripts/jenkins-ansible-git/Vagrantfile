@@ -1,0 +1,71 @@
+
+Vagrant.configure("2") do |config|
+  config.vm.define "ansible-jenkins-box" do |ansible|
+    ansible.vm.box = "ubuntu/xenial64"
+    ansible.vm.hostname = 'ansible-jenkins-box'
+    ansible.vm.box_url = "ubuntu/xenial64"
+    ansible.vm.network :private_network, ip: "192.168.56.40"
+	  ansible.vm.provision "shell", path: "vagrant_provision_scripts/provision_ssh_key.sh"
+    #ansible.vm.provision "shell", path: "vagrant_provision_scripts/ansible_install.sh"
+	  ansible.vm.provision "ansible_local" do |ansibleconf|
+	  #ansibleconf.verbose = "v"
+      ansibleconf.playbook = "./ansible/maven.yml"
+	  end
+    ansible.vm.provision "ansible_local" do |ansibleconf|
+      ansibleconf.playbook = "./ansible/ansible.yml"
+    end
+    ansible.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 1500]
+      v.customize ["modifyvm", :id, "--name", "ansible-jenkins-box"]
+    end
+  end
+  config.vm.define "git-box" do |git_box|
+    git_box.vm.box = "ubuntu/xenial64"
+    git_box.vm.hostname = 'git-box'
+    git_box.vm.box_url = "ubuntu/xenial64"
+    git_box.vm.network :private_network, ip: "192.168.56.41"
+    git_box.vm.provision "shell", path: "vagrant_provision_scripts/provision_ssh_key.sh"
+    git_box.vm.provision "shell", path: "vagrant_provision_scripts/python-minimal.sh"
+	  git_box.vm.provision "ansible_local" do |ansibleconf|
+      ansibleconf.playbook = "./ansible/git.yml"
+    end
+    git_box.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 256]
+      v.customize ["modifyvm", :id, "--name", "git-box"]
+    end
+  end
+    config.vm.define "artifactory-box" do |artifactory_box|
+    artifactory_box.vm.box = "ubuntu/xenial64"
+    artifactory_box.vm.hostname = 'artifactory-box'
+    artifactory_box.vm.box_url = "ubuntu/xenial64"
+    artifactory_box.vm.network :private_network, ip: "192.168.56.42"
+    artifactory_box.vm.provision "shell", path: "vagrant_provision_scripts/provision_ssh_key.sh"
+    artifactory_box.vm.provision "shell", path: "vagrant_provision_scripts/python-minimal.sh"
+    artifactory_box.vm.provision "ansible_local" do |ansibleconf|
+      ansibleconf.playbook = "./ansible/artifactory.yml"
+    end
+    artifactory_box.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 1500]
+      v.customize ["modifyvm", :id, "--name", "artifactory-box"]
+    end
+  end
+    config.vm.define "tomcat-box" do |tomcat_box|
+    tomcat_box.vm.box = "ubuntu/xenial64"
+    tomcat_box.vm.hostname = 'tomcat-box'
+    tomcat_box.vm.box_url = "ubuntu/xenial64"
+    tomcat_box.vm.network :private_network, ip: "192.168.56.43"
+	  tomcat_box.vm.provision "shell", path: "vagrant_provision_scripts/provision_ssh_key.sh"
+    tomcat_box.vm.provision "shell", path: "vagrant_provision_scripts/python-minimal.sh"
+    tomcat_box.vm.provision "ansible_local" do |ansibleconf|
+      ansibleconf.playbook = "./ansible/tomcat.yml"
+    end
+    tomcat_box.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "tomcat-box"]
+    end
+  end
+end

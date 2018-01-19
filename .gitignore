@@ -2,6 +2,9 @@ scripts/ssh/
 scripts/.vagrant/
 scripts/ansible/*.retry
 *.log
+*.retry
 scripts/ansible-box/ssh/
 scripts/haproxy-box/ssh/
 scripts/haproxy-box/.vagrant
+scripts/jenkins-ansible-git/.vagrant/
+scripts/jenkins-ansible-git/ssh/

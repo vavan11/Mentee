@@ -1,0 +1,11 @@
+[ansible]
+ansible-jenkins-box ansible_host=192.168.56.40
+
+[git]
+git-box ansible_host=192.168.56.41 
+
+[artifactory]
+artifactory-box ansible_host=192.168.56.42
+
+[tomcat]
+tomcat-box ansible_host=192.168.56.43

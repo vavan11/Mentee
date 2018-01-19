@@ -1,0 +1,23 @@
+# tomcat.yml
+---
+- hosts: tomcat-box
+  sudo: yes
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: yes
+        
+    - name: Install JDK
+      apt:
+        name: default-jdk
+        state: present
+        
+    - name: Install Tomcat
+      apt:
+        name: tomcat7
+        state: present
+        
+    - name: Install Tomcat Admin
+      apt:
+        name: tomcat7-admin
+        state: present

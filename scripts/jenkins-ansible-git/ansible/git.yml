@@ -1,0 +1,40 @@
+# git.yml
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: yes
+
+    - name: Install GIT-CORE
+      apt:
+        name: git-core
+        state: present
+
+    - user:
+        name: git
+        shell: /bin/bash
+        groups: adm
+        append: yes
+
+    - name: Copy pub key
+      shell: mkdir -p /home/git/.ssh && cat /home/ubuntu/.ssh/id_rsa.pub >> /home/git/.ssh/authorized_keys
+      
+    - name: Permission to authorized_keys
+      shell: chmod 600 /home/git/.ssh/authorized_keys && chown -R git:git /home/git/.ssh/
+      
+    - name: Create Project folder
+      shell: mkdir -p /home/git/new_project.git
+
+    - name: Cp to Project folder and create an empty repo
+      shell: cd /home/git/new_project.git && git init --bare && chown -R git:git /home/git/
+      
+    - name: Cp files to git 
+      shell: mkdir -p /tmp/new_project && cp -r -v /vagrant/files/maven-hello-world-master/* /tmp/new_project/ && chown -R ubuntu /tmp/new_project/
+     
+    - name: First commit
+      shell: cd /tmp/new_project && git init && git add . && git commit -m 'initial commit'
+     
+    - name: Add to repo
+      shell: cd /tmp/new_project && git remote add origin git@localhost:/home/git/new_project.git && git push origin master

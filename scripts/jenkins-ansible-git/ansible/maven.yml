@@ -1,0 +1,13 @@
+# tomcat.yml
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: yes
+        
+    - name: Install Maven
+      apt:
+        name: maven
+        state: present

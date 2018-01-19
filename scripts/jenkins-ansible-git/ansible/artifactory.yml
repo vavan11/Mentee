@@ -1,0 +1,29 @@
+# artifactory.yml
+---
+  - hosts: all
+    sudo: yes
+    tasks:
+      - name: Append the Debian package repository
+        shell: echo "deb https://jfrog.bintray.com/artifactory-pro-debs xenial main" | sudo tee -a /etc/apt/sources.list
+
+      - name: curl
+        shell: curl https://bintray.com/user/downloadSubjectPublicKey?username=jfrog | sudo apt-key add -
+
+      - name: Apt update
+        apt:
+          update_cache: yes
+
+      - name: Install JDK
+        apt:
+          name: default-jdk
+          state: present
+
+      - name: Install Artifactory
+        apt:
+          name: jfrog-artifactory-pro
+          state: present
+
+      - service:
+          name: start artifactory
+          name: artifactory
+          state: started

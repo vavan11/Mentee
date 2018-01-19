@@ -1,6 +1,6 @@
 # jenkins.yml
 ---
-- hosts: mein_host
+- hosts: all
   sudo: yes
   tasks:
     - name: Add the repository
@@ -27,7 +27,7 @@
       shell: systemctl start jenkins
       
     - name: Create dir
-      shell: mkdir /var/lib/jenkins/.ssh
+      shell: mkdir -p /var/lib/jenkins/.ssh
                   
     - name: Cp key
       shell: cp -v /vagrant/ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa
