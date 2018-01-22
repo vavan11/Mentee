@@ -1,4 +1,4 @@
 Jenkins Plugin
 - Maven Integration
 - Parameterized Trigger Plugin
-- Deploy Plugin
+- Deploy to container Plugin

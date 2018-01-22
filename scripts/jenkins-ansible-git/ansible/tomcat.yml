@@ -12,12 +12,41 @@
         name: default-jdk
         state: present
         
-    - name: Install Tomcat
-      apt:
-        name: tomcat7
-        state: present
-        
-    - name: Install Tomcat Admin
-      apt:
-        name: tomcat7-admin
-        state: present
+    - name: groupadd tomcat  
+      shell: groupadd tomcat
+      
+    - name: crate user tomcat 
+      shell: useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+      
+    - name: install tomcat 
+      shell: cd /tmp && wget http://apache.volia.net/tomcat/tomcat-9/v9.0.2/bin/apache-tomcat-9.0.2.tar.gz
+      
+    - name: create dir and untar archive 
+      shell: mkdir /opt/tomcat && cd /tmp && tar -xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+      
+    - name: Update Permissions
+      shell: cd /opt/tomcat && chgrp -R tomcat /opt/tomcat && chmod -R g+r conf && chmod g+x conf && chown -R tomcat webapps/ work/ temp/ logs/
+    
+    - name: Copy tomcat server config file
+      template: src=files/tomcat.service.j2 dest=/etc/systemd/system/tomcat.service
+      
+    - name:  reload the systemd daemon
+      shell: systemctl daemon-reload && systemctl start tomcat && systemctl enable tomcat
+            
+    - name: add user to tomcat
+      blockinfile:
+        path: /opt/tomcat/conf/tomcat-users.xml
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+        insertafter: "<body>"
+        content: |
+          <tomcat-users>
+            <user username="admin" password="password" roles="manager-gui,admin-gui"/>
+          </tomcat-users>
+          
+    - name: copy context
+      template: src=files/context.xml.j2 dest=/opt/tomcat/webapps/host-manager/META-INF/context.xml
+     
+    - name: Restart tomcat
+      shell: systemctl restart tomcat
+
+
