@@ -12,41 +12,48 @@
         name: default-jdk
         state: present
         
-    - name: groupadd tomcat  
-      shell: groupadd tomcat
+    - group:
+        name: tomcat
+        state: present 
+        
+    - user:
+        name: tomcat
+        shell: /bin/false
+        groups: tomcat
+        append: yes
       
-    - name: crate user tomcat 
-      shell: useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
-      
-    - name: install tomcat 
+    - name: wget tomcat 
       shell: cd /tmp && wget http://apache.volia.net/tomcat/tomcat-9/v9.0.2/bin/apache-tomcat-9.0.2.tar.gz
+    
+    - name: Creates directory
+      file: path=/opt/tomcat state=directory
       
-    - name: create dir and untar archive 
-      shell: mkdir /opt/tomcat && cd /tmp && tar -xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+   
+    - name: untar archive 
+      shell: tar -xzvf /tmp/apache-tomcat-9*tar.gz -C /opt/tomcat --strip-components=1
       
     - name: Update Permissions
       shell: cd /opt/tomcat && chgrp -R tomcat /opt/tomcat && chmod -R g+r conf && chmod g+x conf && chown -R tomcat webapps/ work/ temp/ logs/
     
     - name: Copy tomcat server config file
-      template: src=files/tomcat.service.j2 dest=/etc/systemd/system/tomcat.service
+      template: src=/vagrant/files/tomcat.service.j2 dest=/etc/systemd/system/tomcat.service
       
     - name:  reload the systemd daemon
       shell: systemctl daemon-reload && systemctl start tomcat && systemctl enable tomcat
-            
-    - name: add user to tomcat
-      blockinfile:
-        path: /opt/tomcat/conf/tomcat-users.xml
-        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
-        insertafter: "<body>"
-        content: |
-          <tomcat-users>
-            <user username="admin" password="password" roles="manager-gui,admin-gui"/>
-          </tomcat-users>
-          
-    - name: copy context
-      template: src=files/context.xml.j2 dest=/opt/tomcat/webapps/host-manager/META-INF/context.xml
-     
+                  
+    - name: copy context for host manager
+      template: src=/vagrant/files/context.xml.j2 dest=/opt/tomcat/webapps/host-manager/META-INF/context.xml
+    
+    - name: copy context for manager
+      template: src=/vagrant/files/context.xml.j2 dest=/opt/tomcat/webapps/manager/META-INF/context.xml
+      
+    - name: copy file users
+      template: src=/vagrant/files/tomcat-users.xml.j2 dest=/opt/tomcat/tomcat-users.xml
+    
+    - name: copy file users
+      template: src=/vagrant/files/server.xml.j2 dest=/opt/tomcat/server.xml
+    
     - name: Restart tomcat
-      shell: systemctl restart tomcat
+      shell: systemctl restart tomcat.service
 
 
