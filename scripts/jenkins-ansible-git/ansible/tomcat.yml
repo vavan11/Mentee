@@ -23,7 +23,7 @@
         append: yes
       
     - name: wget tomcat 
-      shell: cd /tmp && wget http://apache.volia.net/tomcat/tomcat-9/v9.0.2/bin/apache-tomcat-9.0.2.tar.gz
+      shell: cd /tmp && wget http://apache.volia.net/tomcat/tomcat-9/v9.0.4/bin/apache-tomcat-9.0.4.tar.gz
     
     - name: Creates directory
       file: path=/opt/tomcat state=directory
@@ -40,19 +40,17 @@
       
     - name:  reload the systemd daemon
       shell: systemctl daemon-reload && systemctl start tomcat && systemctl enable tomcat
-                  
-    - name: copy context for host manager
-      template: src=/vagrant/files/context.xml.j2 dest=/opt/tomcat/webapps/host-manager/META-INF/context.xml
-    
-    - name: copy context for manager
+                     
+    - name: copy file users
+      template: src=/vagrant/files/tomcat-users.xml.j2 dest=/opt/tomcat/conf/tomcat-users.xml
+      
+          
+    - name: copy context manager
       template: src=/vagrant/files/context.xml.j2 dest=/opt/tomcat/webapps/manager/META-INF/context.xml
       
-    - name: copy file users
-      template: src=/vagrant/files/tomcat-users.xml.j2 dest=/opt/tomcat/tomcat-users.xml
-    
-    - name: copy file users
-      template: src=/vagrant/files/server.xml.j2 dest=/opt/tomcat/server.xml
-    
+    - name: copy context
+      template: src=/vagrant/files/context.xml.j2 dest=/opt/tomcat/webapps/host-manager/META-INF/context.xml
+      
     - name: Restart tomcat
       shell: systemctl restart tomcat.service
 
