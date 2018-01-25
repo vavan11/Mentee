@@ -43,7 +43,7 @@
         - zabbix-frontend-php
         - zabbix-agent
     
-    - name: Create a new database with name 'bobdata'
+    - name: Create a new database
       mysql_db:
         name: "{{zabix_db}}"
         state: present
