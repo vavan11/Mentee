@@ -9,3 +9,6 @@ artifactory-box ansible_host=192.168.56.42
 
 [tomcat]
 tomcat-box ansible_host=192.168.56.43
+
+[zabix]
+tomcat-box ansible_host=192.168.56.44
