@@ -42,15 +42,59 @@
         - zabbix-server-mysql
         - zabbix-frontend-php
         - zabbix-agent
-    
-    - name: Create a new database
-      mysql_db:
-        name: "{{zabix_db}}"
-        state: present
-
-    - name: Add deploy DB user and allow access to news_* databases
-      mysql_user: name={{db_user}} password={{db_user_pass}} host="%" priv={{zabix_db}}.*:ALL,GRANT state=present
-  
+        
+    - name: Crate databases    
+      shell: mysql --password="{{mysql_root_pass}}" --user=root -e "CREATE DATABASE "{{ zabix_db }}" CHARACTER SET utf8 COLLATE utf8_bin"
+      ignore_errors: True
+      
+    - name: Create user MySQL
+      shell: mysql --password="{{mysql_root_pass}}" --user=root -e "CREATE USER '"{{ db_user }}"'@'localhost' IDENTIFIED BY '"{{ db_user_pass }}"'"
+      ignore_errors: True
+      
+    - name: Add access to database
+      shell: mysql --password="{{mysql_root_pass}}" --user=root -e "GRANT ALL PRIVILEGES ON "{{ zabix_db }}".* TO '"{{ db_user }}"'@'localhost'"
+      ignore_errors: True
+      
+    - name: FLUSH PRIVILEGES
+      shell: mysql --password="{{mysql_root_pass}}" --user=root -e "FLUSH PRIVILEGES;"
+      
     - name: Import the initial schema and data
-      shell: zcat /usr/share/doc/zabbix-server-mysql/create.sql.gz | mysql -uzabbix -p {{db_user_pass}}   
-  
+      shell: zcat /usr/share/zabbix-server-mysql/{schema,images,data}.sql.gz |mysql -u"{{ db_user }}" -p"{{ db_user_pass }}" "{{ zabix_db }}"   
+      ignore_errors: True
+      
+    - name: CP zabix server conf
+      template: src=/vagrant/files/zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf
+      
+    - name: CP zabix apache2 conf 
+      template: src=/vagrant/files/apache.conf.j2 dest=/etc/zabbix/apache.conf
+    
+    - name: CP zabix conf php to /etc/zabbix/
+      template: src=/vagrant/files/zabbix.conf.php.j2 dest=/etc/zabbix/zabbix.conf.php
+      
+    - name: CP to apache2/conf-enabled
+      template: src=/vagrant/files/zabbix.conf.j2 dest=/etc/apache2/conf-enabled/zabbix.conf
+      
+    - name: Apache a2enmod alias
+      shell: a2enmod alias
+       
+    - name: Restart service apache2, in all cases
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: apache2
+    
+    - name: Restart service zabbix-server, in all cases
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: zabbix-server
+
+    - name: enable service zabbix-server and ensure it is not masked
+      systemd:
+        name: zabbix-server
+        enabled: yes
+
+      
+      
+      
+      
