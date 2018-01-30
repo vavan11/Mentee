@@ -4,16 +4,20 @@
 MYSQL_ROOT_PASSWORD=password
 MYSQL_USER_PASSWORD=zabbix
 
-rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-1.el7.centos.noarch.rpm
-yum -y install zabbix-server-mysql zabbix-web-mysql wget
-wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-rpm -ivh mysql-community-release-el7-5.noarch.rpm
-yum -y update
-yum -y install mysql-server
-systemctl start mysqld
-systemctl enable mysqld
+groupadd zabbix
+useradd -g zabbix zabbix
 
-# set root password
+rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-1.el7.centos.noarch.rpm
+#rpm -ivh http://repo.zabbix.com/zabbix/3.5/rhel/7/x86_64/zabbix-release-3.5-1.el7.noarch.rpm
+yum -y install zabbix-server-mysql zabbix-web-mysql wget
+#wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+#rpm -ivh mysql-community-release-el7-5.noarch.rpm
+#yum -y update
+#yum -y install mysql-server
+#systemctl start mysqld
+#systemctl enable mysqld
+
+#Set root password
 
 # Make sure that NOBODY can access the server without a password
 mysql -e "UPDATE mysql.user SET Password = PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User = 'root'"
@@ -39,10 +43,14 @@ zcat /usr/share/doc/zabbix-server-mysql-3.4.6/create.sql.gz | mysql -uzabbix -p 
 cp -v /vagrant/files/zabbix_server.conf.j2 /etc/zabbix/zabbix_server.conf
 cp -v /vagrant/files/zabbix.conf.j2 /etc/httpd/conf.d/zabbix.conf
 
+#Creating Folder
+mkdir -p /var/log/zabbix-server/ && chown -R zabbix:zabbix /var/log/zabbix-server
+mkdir -p /etc/zabbix/zabbix_server.conf.d && chown -R zabbix:zabbix /etc/zabbix/zabbix_server.conf.d
+
 systemctl start zabbix-server
 systemctl enable zabbix-server
 setsebool -P httpd_can_connect_zabbix on
 systemctl start httpd
 systemctl enable httpd
-yum -y install zabbix-agent
-service zabbix-agent start
+#yum -y install zabbix-agent
+#service zabbix-agent start
