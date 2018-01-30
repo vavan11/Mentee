@@ -30,6 +30,12 @@ mysql --password=${MY_SQL_PASS} --user=root -e "GRANT ALL PRIVILEGES ON ${ZABBIX
 mysql --password=${MY_SQL_PASS} --user=root -e "FLUSH PRIVILEGES;"
 zcat /usr/share/doc/zabbix-server-mysql/create.sql.gz | mysql --user=$DB_USER_ZABBIX --password=$DB_USER_PASS
 
+apt -y install zabbix-agent
+
 systemctl start zabbix-server.service
 systemctl enable zabbix-server.service
 sudo systemctl restart apache2.service
+systemctl start zabbix-agent.service
+systemctl enable zabbix-agent.service
+
+#https://packages.debian.org/sid/all/zabbix-java-gateway/download
