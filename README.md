@@ -81,7 +81,7 @@
     <td class="tg-yw4l">Basics of automation.</td>
     <td class="tg-yw4l">Set of automation and orchestration tools: Docker,Vagrant,Ansible</td>
     <td class="tg-yw4l">Personal tech task in scope of test project</td>
-    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Completed</td>
   </tr>
   <tr>
     <td class="tg-yw4l">6</td>
