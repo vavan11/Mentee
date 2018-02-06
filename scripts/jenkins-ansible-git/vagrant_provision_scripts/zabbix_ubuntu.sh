@@ -13,7 +13,7 @@ debconf-set-selections <<< "mysql-server mysql-server/root_password_again passwo
 apt-get install -y mysql-server 
 apt-get install -y mysql-client apache2
 
-wget http://repo.zabbix.com/zabbix/3.5/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.5-1+xenial_all.deb
+wget http://repo.zabbix.com/zabbix/3.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.4-1+xenial_all.deb
 dpkg -i zabbix*.deb
 apt-get update
 apt-get install -y zabbix-server-mysql zabbix-frontend-php
@@ -28,7 +28,7 @@ mysql --password=${MY_SQL_PASS} --user=root -e "CREATE DATABASE ${ZABBIX_DB} CHA
 mysql --password=${MY_SQL_PASS} --user=root -e "CREATE USER '${DB_USER_ZABBIX}'@'localhost' IDENTIFIED BY '${DB_USER_PASS}'"
 mysql --password=${MY_SQL_PASS} --user=root -e "GRANT ALL PRIVILEGES ON ${ZABBIX_DB}.* TO '${DB_USER_ZABBIX}'@'localhost'"
 mysql --password=${MY_SQL_PASS} --user=root -e "FLUSH PRIVILEGES;"
-zcat /usr/share/doc/zabbix-server-mysql/create.sql.gz | mysql --user=$DB_USER_ZABBIX --password=$DB_USER_PASS
+zcat /usr/share/doc/zabbix-server-mysql/create.sql.gz | mysql --user=$DB_USER_ZABBIX -p zabbix --password=$DB_USER_PASS
 
 apt -y install zabbix-agent
 
